@@ -1263,36 +1263,16 @@ git commit -m "feat(auth): routes + express app + server entrypoint"
 ### Task 14: Integration test (supertest, to'liq flow)
 
 **Files:**
-- Create: `backend/tests/integration/auth.flow.test.ts`, `backend/.env.test`
+- Create: `backend/tests/integration/auth.flow.test.ts`
 
-> Bu test haqiqiy test DB talab qiladi. `.env.test` ichida alohida `DATABASE_URL` (masalan `abc_auto_test`). Test'dan oldin migratsiya qo'llang.
+> **Supabase eslatmasi:** bepul tarifda bitta `postgres` DB bor, shuning uchun alohida test DB yaratilmaydi. Test bir xil `backend/.env` (Supabase) ulanishini ishlatadi. Izolyatsiya: har run **unik email** yaratadi va `afterAll` o'sha userni o'chiradi (RefreshToken `onDelete: Cascade` orqali avtomatik o'chadi). Task 2 migratsiyasi allaqachon schema'ni yaratgan, shuning uchun qo'shimcha migratsiya kerak emas.
 
-- [ ] **Step 1: .env.test va test DB tayyorlash**
-
-`backend/.env.test`:
-```
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/abc_auto_test?schema=public"
-JWT_ACCESS_SECRET="test-access"
-JWT_REFRESH_SECRET="test-refresh"
-ACCESS_TOKEN_TTL="15m"
-REFRESH_TOKEN_TTL_DAYS="7"
-CORS_ORIGIN="http://localhost:3000"
-PORT="4001"
-NODE_ENV="test"
-```
-
-Run: `dotenv -e .env.test -- npx prisma migrate deploy` yoki qo'lda `DATABASE_URL=<test-url> npx prisma migrate deploy`
-Expected: test DB schema yaratiladi.
-
-- [ ] **Step 2: Failing integration test**
+- [ ] **Step 1: Failing integration test**
 
 `backend/tests/integration/auth.flow.test.ts`:
 ```ts
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, afterAll } from "vitest";
 import request from "supertest";
-import { config } from "dotenv";
-config({ path: ".env.test" });
-
 import { createApp } from "../../src/app";
 import { prisma } from "../../src/lib/prisma";
 
@@ -1351,19 +1331,19 @@ describe("auth flow", () => {
 });
 ```
 
-- [ ] **Step 3: Test ishga tushirish**
+- [ ] **Step 2: Test ishga tushirish**
 
 Run: `npm test -- auth.flow`
-Expected: PASS (barcha 6 holat). Agar DB ulanmasa, Step 1'ni tekshiring.
+Expected: PASS (barcha 6 holat). Agar DB ulanmasa, `backend/.env` dagi `DATABASE_URL` ni tekshiring (Supabase parol/host).
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 3: Commit**
 
 ```bash
-git add backend/tests/integration/auth.flow.test.ts backend/.env.test
+git add backend/tests/integration/auth.flow.test.ts
 git commit -m "test(auth): integration flow (register/login/refresh/me)"
 ```
 
-> **Eslatma:** `.env.test` da haqiqiy maxfiy qiymat yo'q (lokal test secret), shuning uchun commit qilinadi. Prod secret hech qachon commit qilinmaydi.
+> **Eslatma:** `.env` hech qachon commit qilinmaydi (`.gitignore` da). Integration test maxfiy emas — faqat real DB ulanishini ishlatadi.
 
 ---
 
