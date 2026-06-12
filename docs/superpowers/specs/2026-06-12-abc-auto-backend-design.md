@@ -112,6 +112,7 @@ Foydalanuvchi ro'yxatdan o'tishi, login qilishi, session saqlanishi va himoyalan
   - `phone text`
   - `created_at timestamptz default now()`
 - RLS: foydalanuvchi faqat o'z `profiles` qatorini o'qiydi/yangilaydi; `admin` hammasini ko'radi.
+- `handle_new_user()` trigger: `auth.users` ga yangi qator qo'shilganda `public.profiles` ga mos qator (default `role = buyer`) yaratadi.
 
 ### 4.3 Komponentlar
 | Unit | Joy | Vazifa | Bog'liqligi |
@@ -130,7 +131,8 @@ login/register sahifa (form)
   → Server Action (features/auth/actions/register)
     → registerSchema.parse(formData)        # validation
     → supabase.auth.signUp()                # auth.users yaratadi
-    → profiles ga qator qo'shadi (trigger yoki action)
+    → DB trigger avtomatik public.profiles qatorini yaratadi
+      (on auth.users insert → handle_new_user())
     → redirect (login yoki dashboard)
 ```
 
