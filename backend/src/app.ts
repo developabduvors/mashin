@@ -4,6 +4,7 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { env } from "./config/env";
 import { authRouter } from "./modules/auth/auth.routes";
+import { catalogRouter } from "./modules/catalog/catalog.routes";
 import { errorHandler } from "./middleware/errorHandler";
 
 export function createApp() {
@@ -15,6 +16,8 @@ export function createApp() {
 
   const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 50 });
   app.use("/api/auth", authLimiter, authRouter);
+
+  app.use("/api", catalogRouter);
 
   app.get("/health", (_req, res) => {
     res.json({ ok: true });
