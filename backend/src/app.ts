@@ -5,6 +5,11 @@ import rateLimit from "express-rate-limit";
 import { env } from "./config/env";
 import { authRouter } from "./modules/auth/auth.routes";
 import { catalogRouter } from "./modules/catalog/catalog.routes";
+import { leadsRouter, adminLeadsRouter } from "./modules/leads/leads.routes";
+import { collectionsRouter } from "./modules/collections/collections.routes";
+import { creditRouter } from "./modules/credit/credit.routes";
+import { contentRouter } from "./modules/content/content.routes";
+import { adminRouter } from "./modules/admin/admin.routes";
 import { errorHandler } from "./middleware/errorHandler";
 
 export function createApp() {
@@ -18,6 +23,12 @@ export function createApp() {
   app.use("/api/auth", authLimiter, authRouter);
 
   app.use("/api", catalogRouter);
+  app.use("/api", leadsRouter);
+  app.use("/api", adminLeadsRouter);
+  app.use("/api", collectionsRouter);
+  app.use("/api", creditRouter);
+  app.use("/api", contentRouter);
+  app.use("/api", adminRouter);
 
   app.get("/health", (_req, res) => {
     res.json({ ok: true });
