@@ -41,8 +41,9 @@ export interface CarImage {
 
 export interface CarListItem {
   id: string;
-  brand: { name: string; slug: string };
-  model: { name: string; slug: string };
+  brand: string;       // backend DTO returns car.brand.name (flat string)
+  brandSlug: string;
+  model: string;       // backend DTO returns car.model.name
   trim: string;
   year: number;
   condition: Condition;

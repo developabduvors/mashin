@@ -50,7 +50,7 @@ export const AboutBlog = () => {
               <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900">
                 Блог
               </h2>
-              <Link href="/blog" className="text-xs font-bold uppercase tracking-wider text-[#C1121F] hover:underline">
+              <Link href="/blog" className="text-xs font-bold uppercase tracking-wider text-brand hover:underline">
                 Все статьи
               </Link>
             </div>
@@ -73,7 +73,7 @@ export const AboutBlog = () => {
                   <span className="text-[10px] font-bold uppercase text-zinc-400">
                     {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : 'Недавно'}
                   </span>
-                  <h3 className="mt-2 font-bold text-zinc-900 line-clamp-2 group-hover:text-[#C1121F]">
+                  <h3 className="mt-2 font-bold text-zinc-900 line-clamp-2 group-hover:text-brand">
                     {post.title}
                   </h3>
                 </Link>

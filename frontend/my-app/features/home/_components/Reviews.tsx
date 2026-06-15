@@ -28,7 +28,10 @@ export const Reviews = () => {
               className="flex h-[350px] min-w-[300px] flex-shrink-0 flex-col rounded-2xl bg-zinc-50 p-8 md:min-w-[400px]"
             >
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-zinc-200" />
+                {/* Review modelida foto yo'q — ism bosh harfidan avatar yasaymiz */}
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand text-lg font-black text-white">
+                  {review.author.trim().charAt(0).toUpperCase()}
+                </div>
                 <div>
                   <h3 className="font-bold text-zinc-900">{review.author}</h3>
                   <p className="text-xs text-zinc-400">{review.source || 'Покупатель'}</p>

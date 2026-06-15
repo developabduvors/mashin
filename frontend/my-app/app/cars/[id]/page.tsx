@@ -43,7 +43,7 @@ export default function CarDetailPage() {
             <div className="relative aspect-video w-full overflow-hidden rounded-3xl bg-zinc-100">
               <Image
                 src={car.images[activeImage]?.url || car.coverImage || '/placeholder-car.jpg'}
-                alt={car.brand.name}
+                alt={car.brand}
                 fill
                 className="object-cover"
               />
@@ -66,7 +66,7 @@ export default function CarDetailPage() {
           {/* Right: Info */}
           <div className="w-full lg:w-[450px]">
             <h1 className="text-4xl font-black uppercase tracking-tighter text-zinc-900">
-              {car.brand.name} {car.model.name}
+              {car.brand} {car.model}
             </h1>
             <p className="mt-2 text-xl text-zinc-500">
               {car.trim} {car.year}
@@ -146,7 +146,7 @@ export default function CarDetailPage() {
           type={modalType} 
           carId={car.id}
           title={modalType === 'CREDIT_APPLICATION' ? 'Заявка на кредит' : 'Бронирование'}
-          subtitle={`Вы выбрали ${car.brand.name} ${car.model.name}`}
+          subtitle={`Вы выбрали ${car.brand} ${car.model}`}
           onSuccess={() => setTimeout(() => setIsModalOpen(false), 3000)}
         />
       </Modal>

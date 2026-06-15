@@ -7,6 +7,11 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 
+// Locale-independent: same output on server (Node) and client (browser).
+// Avoids hydration mismatch from toLocaleString()'s env-dependent grouping.
+const formatNumber = (n: number) =>
+  n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
 export const CreditCalculator = () => {
   const [brands, setBrands] = useState<BrandWithModels[]>([]);
   const [selectedBrand, setSelectedBrand] = useState('');
@@ -62,8 +67,8 @@ export const CreditCalculator = () => {
               <div className="flex flex-col gap-4 md:col-span-2">
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between text-sm font-bold">
-                    <span>Сумма кредита</span>
-                    <span className="text-[#C1121F]">{amount.toLocaleString()} ₽</span>
+                    <span className="text-zinc-700">Сумма кредита</span>
+                    <span className="text-brand">{formatNumber(amount)} ₽</span>
                   </div>
                   <input 
                     type="range" 
@@ -72,14 +77,14 @@ export const CreditCalculator = () => {
                     step="50000"
                     value={amount}
                     onChange={(e) => setAmount(Number(e.target.value))}
-                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-[#C1121F]"
+                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between text-sm font-bold">
-                    <span>Срок (мес.)</span>
-                    <span className="text-[#C1121F]">{term} мес.</span>
+                    <span className="text-zinc-700">Срок (мес.)</span>
+                    <span className="text-brand">{term} мес.</span>
                   </div>
                   <input 
                     type="range" 
@@ -88,14 +93,14 @@ export const CreditCalculator = () => {
                     step="6"
                     value={term}
                     onChange={(e) => setTerm(Number(e.target.value))}
-                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-[#C1121F]"
+                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between text-sm font-bold">
-                    <span>Первоначальный взнос</span>
-                    <span className="text-[#C1121F]">{downPayment.toLocaleString()} ₽</span>
+                    <span className="text-zinc-700">Первоначальный взнос</span>
+                    <span className="text-brand">{formatNumber(downPayment)} ₽</span>
                   </div>
                   <input 
                     type="range" 
@@ -104,7 +109,7 @@ export const CreditCalculator = () => {
                     step="10000"
                     value={downPayment}
                     onChange={(e) => setDownPayment(Number(e.target.value))}
-                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-[#C1121F]"
+                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand"
                   />
                 </div>
               </div>
@@ -113,10 +118,10 @@ export const CreditCalculator = () => {
 
           {/* Right: Lead Form */}
           <div className="w-full lg:w-[450px]">
-            <div className="h-full rounded-3xl border-4 border-[#C1121F] bg-white p-8 shadow-2xl md:p-12">
+            <div className="h-full rounded-3xl border-4 border-brand bg-white p-8 shadow-2xl md:p-12">
               <div className="text-center">
                 <div className="text-sm font-bold uppercase tracking-widest text-zinc-400">Ваш ежемесячный платёж</div>
-                <div className="mt-2 text-5xl font-black text-[#C1121F]">{monthlyPayment.toLocaleString()} ₽</div>
+                <div className="mt-2 text-5xl font-black text-brand">{formatNumber(monthlyPayment)} ₽</div>
                 <div className="mt-8 rounded-lg bg-green-50 px-4 py-2 text-sm font-bold text-green-700">
                   Ваша выгода до 300 000 ₽
                 </div>

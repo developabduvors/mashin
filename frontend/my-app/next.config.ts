@@ -1,7 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    // Allow SVG (needed for local bank logos in /public/banks/*.svg).
+    // Paired with attachment disposition + strict CSP as the recommended
+    // security mitigation for next/image SVG handling.
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Allowlist remote hosts used by seeded car/credit/brand images.
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "upload.wikimedia.org" },
+      { protocol: "https", hostname: "www.carlogos.org" },
+    ],
+  },
 };
 
 export default nextConfig;

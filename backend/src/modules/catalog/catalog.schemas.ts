@@ -27,7 +27,8 @@ export const carQuerySchema = z.object({
 });
 
 export const carIdSchema = z.object({
-  params: z.object({ id: z.string().uuid() }),
+  // Prisma id cuid uslubida (uuid emas) — bo'sh bo'lmagan string yetarli.
+  params: z.object({ id: z.string().min(1) }),
 });
 
 export type CarQuery = z.infer<typeof carQuerySchema>["query"];

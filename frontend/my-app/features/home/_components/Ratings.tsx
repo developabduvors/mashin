@@ -29,7 +29,7 @@ export const Ratings = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-6 rounded-2xl bg-white p-6 shadow-sm transition-all hover:shadow-md"
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-zinc-100 font-black text-[#C1121F]">
+              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-zinc-100 font-black text-brand">
                 {rating.rating}
               </div>
               <div>

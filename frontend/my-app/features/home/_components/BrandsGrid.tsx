@@ -29,7 +29,7 @@ export const BrandsGrid = () => {
                 <Link
                   key={brand.id}
                   href={`/cars?brand=${brand.slug}`}
-                  className="group flex flex-col items-center justify-center rounded-lg border border-zinc-100 p-4 transition-all hover:border-[#C1121F] hover:shadow-lg"
+                  className="group flex flex-col items-center justify-center rounded-lg border border-zinc-100 p-4 transition-all hover:border-brand hover:shadow-lg"
                 >
                   <div className="relative h-12 w-full grayscale transition-all group-hover:grayscale-0">
                     <Image
@@ -39,7 +39,7 @@ export const BrandsGrid = () => {
                       className="object-contain"
                     />
                   </div>
-                  <span className="mt-2 text-[10px] font-bold uppercase text-zinc-400 group-hover:text-[#C1121F]">
+                  <span className="mt-2 text-[10px] font-bold uppercase text-zinc-400 group-hover:text-brand">
                     {brand.name}
                   </span>
                 </Link>
@@ -85,7 +85,7 @@ export const BrandsGrid = () => {
                     min="500000" 
                     max="10000000" 
                     step="100000"
-                    className="h-2 w-full appearance-none rounded-lg bg-zinc-700 accent-[#C1121F]"
+                    className="h-2 w-full appearance-none rounded-lg bg-zinc-700 accent-brand"
                   />
                   <div className="flex justify-between text-xs font-bold text-zinc-400">
                     <span>500 000 ₽</span>

@@ -23,14 +23,14 @@ export const MapContacts = () => {
             
             <div className="space-y-10">
               {contacts?.dealerships.map((dealer) => (
-                <div key={dealer.id} className="border-l-4 border-[#C1121F] pl-6">
+                <div key={dealer.id} className="border-l-4 border-brand pl-6">
                   <h3 className="text-xl font-bold text-zinc-900">{dealer.address}</h3>
                   <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div>
                       <p className="text-[10px] font-bold uppercase text-zinc-400">Телефоны:</p>
                       <div className="mt-1 flex flex-col gap-1">
                         {dealer.phones.map((phone, idx) => (
-                          <a key={idx} href={`tel:${phone}`} className="text-lg font-bold text-zinc-900 hover:text-[#C1121F]">
+                          <a key={idx} href={`tel:${phone}`} className="text-lg font-bold text-zinc-900 hover:text-brand">
                             {phone}
                           </a>
                         ))}
@@ -46,10 +46,10 @@ export const MapContacts = () => {
                 </div>
               ))}
               {!contacts && (
-                <div className="border-l-4 border-[#C1121F] pl-6">
+                <div className="border-l-4 border-brand pl-6">
                   <h3 className="text-xl font-bold text-zinc-900">г. Москва, ул. Автозаводская, 23/15</h3>
                   <div className="mt-4 flex flex-col gap-1">
-                    <a href="tel:+78005553535" className="text-lg font-bold text-zinc-900 hover:text-[#C1121F]">
+                    <a href="tel:+78005553535" className="text-lg font-bold text-zinc-900 hover:text-brand">
                       +7 (800) 555-35-35
                     </a>
                   </div>
@@ -63,7 +63,7 @@ export const MapContacts = () => {
             {/* In a real project, we'd use Yandex or Google Maps here */}
             <div className="absolute inset-0 flex items-center justify-center text-center p-10">
               <div className="flex flex-col items-center">
-                <svg className="h-12 w-12 text-[#C1121F] mb-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="h-12 w-12 text-brand mb-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
                 <p className="font-bold text-zinc-500 italic">Интерактивная карта загружается...</p>

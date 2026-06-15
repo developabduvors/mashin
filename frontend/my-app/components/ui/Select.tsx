@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -15,11 +16,17 @@ export const Select = ({ label, error, options, className = '', ...props }: Sele
         </label>
       )}
       <select
-        className={`flex h-10 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+        // text-zinc-900 default — och fonda ko'rinadi; cn() bilan uzatilgan
+        // className (masalan text-white) to'qnashuvda ishonchli yutadi.
+        className={cn(
+          'flex h-10 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          className,
+        )}
         {...props}
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
+          // ochilgan ro'yxat doim oq fonli — matnni qora qilamiz (oq panel select'da ham)
+          <option key={opt.value} value={opt.value} className="bg-white text-zinc-900">
             {opt.label}
           </option>
         ))}

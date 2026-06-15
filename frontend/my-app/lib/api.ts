@@ -14,7 +14,7 @@ import {
   LeadPayload
 } from './types';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3001/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
 
 async function fetcher<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
@@ -35,7 +35,9 @@ async function fetcher<T>(path: string, options?: RequestInit): Promise<T> {
 
 export const api = {
   brands: {
-    getAll: () => fetcher<BrandWithModels[]>('/brands'),
+    // Backend wraps the list as { brands: [...] } — unwrap to a bare array.
+    getAll: () =>
+      fetcher<{ brands: BrandWithModels[] }>('/brands').then((r) => r.brands),
   },
   cars: {
     getAll: (params?: Record<string, string | number | boolean>) => {
@@ -44,26 +46,31 @@ export const api = {
     },
     getById: (id: string) => fetcher<CarDetail>(`/cars/${id}`),
   },
+  // NOTE: backend wraps every list in a named key ({ collections: [...] },
+  // { programs: [...] }, etc.) — unwrap each to a bare array for the components.
   collections: {
-    getAll: () => fetcher<CollectionListItem[]>('/collections'),
+    getAll: () =>
+      fetcher<{ collections: CollectionListItem[] }>('/collections').then((r) => r.collections),
   },
   creditPrograms: {
-    getAll: () => fetcher<CreditProgramItem[]>('/credit-programs'),
+    getAll: () =>
+      fetcher<{ programs: CreditProgramItem[] }>('/credit-programs').then((r) => r.programs),
   },
   partnerBanks: {
-    getAll: () => fetcher<PartnerBankItem[]>('/partner-banks'),
+    getAll: () =>
+      fetcher<{ banks: PartnerBankItem[] }>('/partner-banks').then((r) => r.banks),
   },
   ratings: {
-    getAll: () => fetcher<RatingItem[]>('/ratings'),
+    getAll: () => fetcher<{ ratings: RatingItem[] }>('/ratings').then((r) => r.ratings),
   },
   reviews: {
-    getAll: () => fetcher<ReviewItem[]>('/reviews'),
+    getAll: () => fetcher<{ reviews: ReviewItem[] }>('/reviews').then((r) => r.reviews),
   },
   blog: {
-    getAll: () => fetcher<BlogListItem[]>('/blog'),
+    getAll: () => fetcher<{ posts: BlogListItem[] }>('/blog').then((r) => r.posts),
   },
   cities: {
-    getAll: () => fetcher<CityItem[]>('/cities'),
+    getAll: () => fetcher<{ cities: CityItem[] }>('/cities').then((r) => r.cities),
   },
   contacts: {
     getByCity: (citySlug: string) => fetcher<ContactsResult>(`/contacts?city=${citySlug}`),

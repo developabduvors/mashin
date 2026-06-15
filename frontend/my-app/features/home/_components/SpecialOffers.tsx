@@ -36,7 +36,7 @@ export const SpecialOffers = () => {
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
                 />
-                <div className="absolute top-4 left-4 rounded-full bg-[#C1121F] px-4 py-1 text-sm font-black text-white">
+                <div className="absolute top-4 left-4 rounded-full bg-brand px-4 py-1 text-sm font-black text-white">
                   {program.ratePercent}% ставка
                 </div>
               </div>
@@ -49,7 +49,7 @@ export const SpecialOffers = () => {
                   {program.description}
                 </p>
                 <Link href={`/credit/${program.slug}`} className="mt-6">
-                  <Button variant="outline" className="w-full font-bold uppercase tracking-wider text-xs">
+                  <Button variant="outline" className="w-full font-bold uppercase tracking-wider text-xs text-zinc-900">
                     Узнать больше
                   </Button>
                 </Link>

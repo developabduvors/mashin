@@ -11,7 +11,7 @@ export const BeatOffer = () => {
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
-        <div className="relative overflow-hidden rounded-3xl bg-[#C1121F] p-8 text-white md:p-16">
+        <div className="relative overflow-hidden rounded-3xl bg-brand p-8 text-white md:p-16">
           <div className="relative z-10 max-w-2xl">
             <h2 className="text-4xl font-black uppercase italic tracking-tighter md:text-5xl lg:text-6xl">
               Перебьём предложения конкурентов!
@@ -22,7 +22,7 @@ export const BeatOffer = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="mt-10 bg-white text-[#C1121F] border-none font-black uppercase italic hover:bg-zinc-100"
+              className="mt-10 bg-white text-brand border-none font-black uppercase italic hover:bg-zinc-100"
               onClick={() => setIsModalOpen(true)}
             >
               Получить лучшее предложение

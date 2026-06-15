@@ -58,10 +58,16 @@ export const Hero = () => {
         </div>
       ))}
 
+      {/* panjara teksturasi — katalog hero bilan bir xil */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-grid opacity-25" />
+
       <div className="container relative z-20 mx-auto flex h-full flex-col justify-center px-4 text-white">
         <div className="max-w-3xl">
-          <div className="inline-block rounded-md bg-[#C1121F] px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.2em] mb-6 animate-in fade-in slide-in-from-left duration-700">
-            Спецпредложение
+          <div className="mb-6 flex items-center gap-3 animate-in fade-in slide-in-from-left duration-700">
+            <span className="h-px w-10 bg-brand" />
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand">
+              Спецпредложение
+            </span>
           </div>
           <h1 className="text-4xl font-black uppercase leading-[1.1] tracking-tighter md:text-6xl lg:text-7xl animate-in fade-in slide-in-from-left duration-700 delay-100">
             {SLIDES[currentSlide].title}
@@ -77,13 +83,27 @@ export const Hero = () => {
             >
               {SLIDES[currentSlide].buttonText}
             </Button>
-            <Button 
+            <Button
               variant="outline"
-              size="lg" 
+              size="lg"
               className="h-16 px-12 text-xl font-black uppercase italic tracking-wider bg-white/10 text-white border-white/20 backdrop-blur-md hover:bg-white/20 transition-all"
             >
               Подробнее
             </Button>
+          </div>
+
+          {/* ishonch-strip — katalog estetikasiga bog'lash */}
+          <div className="mt-12 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/15 pt-6 animate-in fade-in duration-700 delay-500">
+            {[
+              ['500+', 'авто в наличии'],
+              ['1.9%', 'ставка по кредиту'],
+              ['В день', 'выдача с ПТС'],
+            ].map(([num, label]) => (
+              <div key={label} className="flex flex-col">
+                <span className="font-display text-2xl font-bold leading-none text-white">{num}</span>
+                <span className="mt-1 text-xs uppercase tracking-wider text-zinc-400">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -95,7 +115,7 @@ export const Hero = () => {
             key={idx}
             onClick={() => setCurrentSlide(idx)}
             className={`h-1.5 transition-all duration-300 rounded-full ${
-              idx === currentSlide ? 'bg-[#C1121F] w-12' : 'bg-white/30 w-6 hover:bg-white/50'
+              idx === currentSlide ? 'bg-brand w-12' : 'bg-white/30 w-6 hover:bg-white/50'
             }`}
           />
         ))}
@@ -104,7 +124,7 @@ export const Hero = () => {
       <div className="absolute right-12 bottom-12 z-30 hidden lg:flex gap-4">
         <button
           onClick={prevSlide}
-          className="flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition-all hover:bg-[#C1121F] hover:border-[#C1121F]"
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition-all hover:bg-brand hover:border-brand"
         >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
@@ -112,7 +132,7 @@ export const Hero = () => {
         </button>
         <button
           onClick={nextSlide}
-          className="flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition-all hover:bg-[#C1121F] hover:border-[#C1121F]"
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition-all hover:bg-brand hover:border-brand"
         >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />

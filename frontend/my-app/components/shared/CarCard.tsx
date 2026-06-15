@@ -3,54 +3,94 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CarListItem } from '@/lib/types';
 import { Button } from '@/components/ui/Button';
+import { formatNumber } from '@/lib/utils';
 
 interface CarCardProps {
   car: CarListItem;
 }
 
+const BODY_RU: Record<string, string> = {
+  SEDAN: 'Седан',
+  SUV: 'Внедорожник',
+  HATCHBACK: 'Хэтчбек',
+  CROSSOVER: 'Кроссовер',
+  MINIVAN: 'Минивэн',
+  COUPE: 'Купе',
+};
+
 export const CarCard = ({ car }: CarCardProps) => {
+  const isNew = car.condition === 'NEW';
+
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-zinc-100 bg-white shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
-      <Link href={`/cars/${car.id}`} className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-50">
+    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-[0_20px_50px_-20px_rgba(193,18,31,0.45)]">
+      <Link href={`/cars/${car.id}`} className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
         <Image
           src={car.coverImage || '/design/bois/7-mashina-detali-A.jpg'}
-          alt={`${car.brand.name} ${car.model.name}`}
+          alt={`${car.brand} ${car.model}`}
           fill
-          className="object-cover transition-transform duration-500 hover:scale-110"
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
         />
-        {car.hasPts && (
-          <div className="absolute top-4 left-4 rounded-md bg-green-600 px-3 py-1.5 text-[10px] font-black text-white uppercase tracking-wider shadow-lg">
-            В наличии с ПТС
-          </div>
-        )}
-      </Link>
-      
-      <div className="flex flex-1 flex-col p-4">
-        <Link href={`/cars/${car.id}`}>
-          <h3 className="text-lg font-bold text-zinc-900 line-clamp-1">
-            {car.brand.name} {car.model.name}
-          </h3>
-          <p className="mt-1 text-sm text-zinc-500">
-            {car.trim} {car.year}
-          </p>
-        </Link>
-        
-        <div className="mt-4 flex flex-col gap-1">
-          <div className="text-2xl font-black text-zinc-900">
-            {car.price.toLocaleString()} ₽
-          </div>
-          {car.monthlyFrom && (
-            <div className="text-sm font-medium text-[#C1121F]">
-              от {car.monthlyFrom.toLocaleString()} ₽ / мес.
-            </div>
+        {/* pastki gradient — badge va kelajakdagi matn o'qilishi uchun */}
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent" />
+
+        {/* badge'lar */}
+        <div className="absolute left-3 top-3 flex flex-col gap-2">
+          {car.hasPts && (
+            <span className="rounded bg-green-600 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-lg">
+              В наличии · ПТС
+            </span>
           )}
         </div>
-        
-        <div className="mt-6 flex gap-2">
-          <Button variant="primary" size="sm" className="flex-1 text-xs">
-            КУПИТЬ В КРЕДИТ
+        <span
+          className={`absolute right-3 top-3 rounded px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-wider shadow-lg ${
+            isNew ? 'bg-brand text-white' : 'bg-zinc-900 text-white'
+          }`}
+        >
+          {isNew ? 'Новый' : `${car.year} · с пробегом`}
+        </span>
+      </Link>
+
+      <div className="flex flex-1 flex-col p-4">
+        <Link href={`/cars/${car.id}`} className="block">
+          <h3 className="font-display text-xl font-bold uppercase leading-tight tracking-tight text-zinc-900 line-clamp-1 transition-colors group-hover:text-brand">
+            {car.brand} {car.model}
+          </h3>
+          <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-zinc-400 line-clamp-1">
+            {car.trim} · {car.year}
+          </p>
+        </Link>
+
+        {/* spec chip'lar */}
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {[BODY_RU[car.bodyType] ?? car.bodyType, `${car.year}`].map((chip) => (
+            <span
+              key={chip}
+              className="rounded-md bg-zinc-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-zinc-500"
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-4 flex items-end justify-between border-t border-zinc-100 pt-4">
+          <div>
+            <div className="font-display text-2xl font-bold leading-none text-zinc-900">
+              {formatNumber(car.price)} ₽
+            </div>
+            {car.monthlyFrom && (
+              <div className="mt-1 text-xs font-bold text-brand">
+                от {formatNumber(car.monthlyFrom)} ₽ / мес.
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-4 flex gap-2">
+          <Button variant="primary" size="sm" className="flex-1 text-[11px] tracking-wide">
+            В КРЕДИТ
           </Button>
-          <Button variant="outline" size="sm" className="flex-1 text-xs">
+          <Button variant="outline" size="sm" className="flex-1 text-[11px] tracking-wide">
             РЕЗЕРВ
           </Button>
         </div>
