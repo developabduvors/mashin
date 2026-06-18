@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { api } from '@/lib/api';
 import { CarDetail } from '@/lib/types';
 import { Button } from '@/components/ui/Button';
@@ -84,17 +85,15 @@ export default function CarDetailPage() {
             </div>
 
             <div className="mt-10 grid grid-cols-2 gap-4">
-              <Button 
-                variant="primary" 
-                size="lg" 
-                className="h-14 font-black uppercase italic"
-                onClick={() => handleAction('CREDIT_APPLICATION')}
+              <Link
+                href={`/cars/${car.id}/credit`}
+                className="inline-flex h-14 items-center justify-center rounded-md bg-[#C1121F] font-black uppercase italic text-white transition-colors hover:bg-[#A00F19]"
               >
                 В кредит
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
+              </Link>
+              <Button
+                variant="outline"
+                size="lg"
                 className="h-14 font-black uppercase italic"
                 onClick={() => handleAction('CAR_INQUIRY')}
               >

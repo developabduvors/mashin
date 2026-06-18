@@ -131,7 +131,7 @@ export interface Dealership {
 }
 
 export interface ContactsResult {
-  city: string;
+  city: CityItem;        // backend returns the full city object, not just a name
   dealerships: Dealership[];
 }
 

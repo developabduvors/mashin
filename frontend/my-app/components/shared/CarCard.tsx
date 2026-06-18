@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CarListItem } from '@/lib/types';
-import { Button } from '@/components/ui/Button';
 import { formatNumber } from '@/lib/utils';
 
 interface CarCardProps {
@@ -87,12 +86,18 @@ export const CarCard = ({ car }: CarCardProps) => {
         </div>
 
         <div className="mt-4 flex gap-2">
-          <Button variant="primary" size="sm" className="flex-1 text-[11px] tracking-wide">
+          <Link
+            href={`/cars/${car.id}/credit`}
+            className="inline-flex h-8 flex-1 items-center justify-center rounded-md bg-[#C1121F] px-3 text-[11px] font-medium tracking-wide text-white transition-colors hover:bg-[#A00F19]"
+          >
             В КРЕДИТ
-          </Button>
-          <Button variant="outline" size="sm" className="flex-1 text-[11px] tracking-wide">
+          </Link>
+          <Link
+            href={`/cars/${car.id}`}
+            className="inline-flex h-8 flex-1 items-center justify-center rounded-md border border-zinc-200 bg-white px-3 text-[11px] font-medium tracking-wide text-zinc-900 transition-colors hover:bg-zinc-100"
+          >
             РЕЗЕРВ
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

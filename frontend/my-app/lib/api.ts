@@ -44,7 +44,9 @@ export const api = {
       const query = params ? '?' + new URLSearchParams(params as any).toString() : '';
       return fetcher<Paginated<CarListItem>>(`/cars${query}`);
     },
-    getById: (id: string) => fetcher<CarDetail>(`/cars/${id}`),
+    // Backend wraps the detail as { car: {...} } — unwrap to a bare CarDetail.
+    getById: (id: string) =>
+      fetcher<{ car: CarDetail }>(`/cars/${id}`).then((r) => r.car),
   },
   // NOTE: backend wraps every list in a named key ({ collections: [...] },
   // { programs: [...] }, etc.) — unwrap each to a bare array for the components.
@@ -73,7 +75,9 @@ export const api = {
     getAll: () => fetcher<{ cities: CityItem[] }>('/cities').then((r) => r.cities),
   },
   contacts: {
-    getByCity: (citySlug: string) => fetcher<ContactsResult>(`/contacts?city=${citySlug}`),
+    // citySlug bo'lmasa backend default shahar kontaktlarini qaytaradi.
+    get: (citySlug?: string) =>
+      fetcher<ContactsResult>(citySlug ? `/contacts?city=${citySlug}` : '/contacts'),
   },
   leads: {
     create: (payload: LeadPayload) => fetcher('/leads', {

@@ -11,19 +11,28 @@ interface LeadFormProps {
   carId?: string;
   brandId?: string;
   modelId?: string;
+  // Credit ariza uchun ixtiyoriy — kalkulyator qiymatlarini birga yuboradi.
+  creditAmount?: number;
+  termMonths?: number;
+  downPayment?: number;
+  note?: string;
   title?: string;
   subtitle?: string;
   onSuccess?: () => void;
 }
 
-export const LeadForm = ({ 
-  type, 
-  carId, 
-  brandId, 
-  modelId, 
-  title, 
+export const LeadForm = ({
+  type,
+  carId,
+  brandId,
+  modelId,
+  creditAmount,
+  termMonths,
+  downPayment,
+  note,
+  title,
   subtitle,
-  onSuccess 
+  onSuccess
 }: LeadFormProps) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -46,6 +55,10 @@ export const LeadForm = ({
         carId,
         brandId,
         modelId,
+        creditAmount,
+        termMonths,
+        downPayment,
+        note,
         source: 'Website',
       };
 

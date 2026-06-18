@@ -8,7 +8,7 @@ export const MapContacts = () => {
   const [contacts, setContacts] = useState<ContactsResult | null>(null);
 
   useEffect(() => {
-    api.contacts.getByCity('moskva').then(setContacts).catch(console.error);
+    api.contacts.get('moskva').then(setContacts).catch(console.error);
   }, []);
 
   return (
