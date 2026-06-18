@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
 import { ReviewItem } from '@/lib/types';
 
 // 5 ta yulduz — to'ldirilgan/bo'sh holatda
-const Stars = ({ value = 5, size = 'h-4 w-4' }: { value?: number; size?: string }) => (
+const Stars = ({ value = 5 }: { value?: number }) => (
   <div className="flex gap-0.5">
     {[...Array(5)].map((_, i) => (
       <svg
         key={i}
-        className={`${size} ${i < value ? 'text-yellow-400' : 'text-zinc-200'}`}
+        className={`h-4 w-4 ${i < value ? 'text-yellow-400' : 'text-zinc-200'}`}
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -32,18 +32,15 @@ export const ReviewsList = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // O'rtacha reyting va statistika — bir marta hisoblanadi
-  const avg = useMemo(() => {
-    if (reviews.length === 0) return 0;
-    const sum = reviews.reduce((acc, r) => acc + (r.rating || 5), 0);
-    return Math.round((sum / reviews.length) * 10) / 10;
-  }, [reviews]);
-
   if (loading) {
     return (
-      <div className="container mx-auto grid grid-cols-1 gap-6 px-4 py-20 md:grid-cols-2 lg:grid-cols-3">
+      <div className="container mx-auto columns-1 gap-6 px-4 py-20 sm:columns-2 lg:columns-3">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-64 animate-pulse rounded-2xl bg-zinc-100" />
+          <div
+            key={i}
+            className="mb-6 animate-pulse rounded-2xl bg-zinc-100"
+            style={{ height: `${180 + (i % 3) * 50}px` }}
+          />
         ))}
       </div>
     );
@@ -58,76 +55,45 @@ export const ReviewsList = () => {
   }
 
   return (
-    <section className="bg-zinc-50 py-20">
+    <section className="bg-white py-16 md:py-20">
       <div className="container mx-auto px-4">
-        {/* ===== AGGREGATE STAT BAR ===== */}
-        <div className="mb-14 flex flex-col items-start justify-between gap-6 rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:p-10">
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-10 bg-brand" />
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand">
-                Реальные отзывы
-              </span>
-            </div>
-            <h2 className="mt-4 text-3xl font-bold uppercase tracking-tight text-zinc-900 md:text-4xl">
-              Нам доверяют
-            </h2>
-          </div>
-          <div className="flex items-center gap-8">
-            <div className="flex flex-col">
-              <span className="font-display text-5xl font-bold leading-none text-brand">
-                {avg.toFixed(1)}
-              </span>
-              <div className="mt-2">
-                <Stars value={Math.round(avg)} />
-              </div>
-            </div>
-            <div className="h-12 w-px bg-zinc-200" />
-            <div className="flex flex-col">
-              <span className="font-display text-5xl font-bold leading-none text-zinc-900">
-                {reviews.length}
-              </span>
-              <span className="mt-2 text-xs uppercase tracking-wider text-zinc-400">
-                отзывов
-              </span>
-            </div>
-          </div>
+        {/* editorial section header — hairline rule, not a stat card */}
+        <div className="flex items-baseline justify-between border-b border-zinc-900 pb-4">
+          <h2 className="font-display text-2xl font-bold uppercase tracking-tight text-zinc-900 md:text-3xl">
+            Реальные истории
+          </h2>
+          <span className="font-display text-sm font-bold uppercase tracking-wider text-zinc-400">
+            {reviews.length} отзывов
+          </span>
         </div>
 
-        {/* ===== REVIEWS GRID ===== */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* masonry wall — varied heights via CSS columns */}
+        <div className="mt-10 columns-1 gap-6 sm:columns-2 lg:columns-3">
           {reviews.map((review, idx) => (
             <article
               key={review.id}
-              className="animate-rise group flex flex-col rounded-2xl border border-zinc-200 bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-xl"
+              className="animate-rise mb-6 break-inside-avoid rounded-2xl bg-zinc-50 p-7 ring-1 ring-zinc-100 transition-colors hover:ring-brand/40"
               style={{ animationDelay: `${Math.min(idx * 60, 480)}ms` }}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  {/* Foto yo'q — ism bosh harfidan avatar */}
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand text-lg font-black text-white">
-                    {review.author.trim().charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-zinc-900">{review.author}</h3>
-                    <p className="text-xs text-zinc-400">{review.source || 'Покупатель'}</p>
-                  </div>
-                </div>
-                {/* Dekorativ qo'shtirnoq */}
-                <span className="font-display text-6xl leading-none text-zinc-100 transition-colors group-hover:text-brand/15">
-                  &rdquo;
-                </span>
-              </div>
-
-              <p className="mt-5 flex-1 text-sm leading-relaxed text-zinc-600">
+              {/* small red quote accent — the editorial signature, repeated small */}
+              <span aria-hidden className="font-display text-5xl leading-none text-brand/25">
+                &ldquo;
+              </span>
+              <p className="-mt-3 text-[15px] leading-relaxed text-zinc-700">
                 {review.text}
               </p>
 
-              <div className="mt-6 flex items-center justify-between border-t border-zinc-100 pt-4">
+              <div className="mt-6 flex items-center justify-between border-t border-zinc-200/70 pt-5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-black text-white">
+                    {review.author.trim().charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-zinc-900">{review.author}</div>
+                    <div className="text-xs text-zinc-400">{review.source || 'Покупатель'}</div>
+                  </div>
+                </div>
                 <Stars value={review.rating || 5} />
-                <span className="text-xs font-bold text-zinc-400">
-                  {new Date(review.createdAt).toLocaleDateString('ru-RU')}
-                </span>
               </div>
             </article>
           ))}

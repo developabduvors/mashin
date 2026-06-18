@@ -10,91 +10,85 @@ export const metadata: Metadata = {
     'Реальные отзывы клиентов автосалона ABC AUTO о покупке автомобилей, автокредите и trade-in. Узнайте, почему нам доверяют.',
 };
 
-const STATS: [string, string][] = [
-  ['12 000+', 'довольных клиентов'],
-  ['4.9', 'средний рейтинг'],
-  ['98%', 'рекомендуют нас'],
-];
-
 export default function ReviewsPage() {
   return (
-    <div className="bg-zinc-50">
-      {/* ===== HERO ===== */}
-      <section className="relative overflow-hidden bg-zinc-950 text-white">
-        <div className="absolute inset-0 bg-grid opacity-60" />
-        <div className="absolute -right-24 -top-24 h-72 w-72 rotate-12 bg-brand/20 blur-3xl" />
-        <div className="container relative mx-auto px-4 py-16 md:py-24">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-brand" />
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand">
-              Отзывы · ABC Auto
-            </span>
-          </div>
-          <h1 className="mt-4 max-w-3xl text-6xl font-bold uppercase leading-[0.9] tracking-tight md:text-8xl">
-            Что говорят
-            <span className="block text-brand">наши клиенты</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-zinc-400">
-            Тысячи людей доверили нам покупку автомобиля. Делимся честными отзывами —
-            без фильтров и накруток.
-          </p>
-
-          <div className="mt-12 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/15 pt-6">
-            {STATS.map(([num, label]) => (
-              <div key={label} className="flex flex-col">
-                <span className="font-display text-2xl font-bold leading-none text-white">{num}</span>
-                <span className="mt-1 text-xs uppercase tracking-wider text-zinc-400">{label}</span>
+    <div className="bg-white">
+      {/* ===== HERO — editorial pull-quote ===== */}
+      <section className="relative overflow-hidden border-b border-zinc-200">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+            {/* featured quote */}
+            <figure className="relative">
+              {/* oversized signature quote mark */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -left-2 -top-16 select-none font-display text-[12rem] leading-none text-brand/15 md:-top-24 md:text-[18rem]"
+              >
+                &ldquo;
+              </span>
+              <div className="relative">
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand">
+                  Отзывы клиентов
+                </span>
+                <blockquote className="mt-5 max-w-3xl font-display text-4xl font-bold uppercase leading-[1.02] tracking-tight text-zinc-900 md:text-6xl">
+                  Думал, обмен старого авто — это головная боль. Уехал на новом за один день.
+                </blockquote>
+                <figcaption className="mt-7 flex items-center gap-4">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-zinc-900 text-lg font-black text-white">
+                    А
+                  </span>
+                  <div>
+                    <div className="font-bold text-zinc-900">Алексей Морозов</div>
+                    <div className="text-sm text-zinc-400">Купил Toyota Camry · Trade-in</div>
+                  </div>
+                </figcaption>
               </div>
-            ))}
+            </figure>
+
+            {/* rating badge — vertical, editorial */}
+            <div className="flex shrink-0 flex-row gap-8 lg:flex-col lg:gap-6 lg:border-l lg:border-zinc-200 lg:pl-10">
+              <div>
+                <div className="font-display text-6xl font-bold leading-none text-brand md:text-7xl">4.9</div>
+                <div className="mt-2 flex gap-0.5 text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              <div className="lg:border-t lg:border-zinc-200 lg:pt-6">
+                <div className="font-display text-4xl font-bold leading-none text-zinc-900">12 000+</div>
+                <div className="mt-1 text-xs uppercase tracking-wider text-zinc-400">довольных клиентов</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== REVIEWS LIST (client) ===== */}
+      {/* ===== REVIEWS WALL (client) ===== */}
       <ReviewsList />
 
-      {/* ===== CTA + FORM ===== */}
-      <section id="zayavka" className="scroll-mt-24 bg-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-zinc-200 shadow-xl lg:grid-cols-2">
-            {/* left: dark promise */}
-            <div className="relative overflow-hidden bg-zinc-950 p-10 text-white md:p-12">
-              <div className="absolute inset-0 bg-grid opacity-50" />
-              <div className="relative">
-                <div className="flex items-center gap-3">
-                  <span className="h-px w-10 bg-brand" />
-                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand">
-                    Присоединяйтесь
-                  </span>
-                </div>
-                <h2 className="mt-4 text-4xl font-bold uppercase leading-none tracking-tight md:text-5xl">
-                  Хотите так же?
-                  <span className="block text-brand">начните с заявки</span>
-                </h2>
-                <p className="mt-6 max-w-sm text-zinc-400">
-                  Оставьте телефон — менеджер подберёт автомобиль под ваш бюджет
-                  и условия. А свой отзыв вы оставите уже за рулём нового авто.
-                </p>
-                <div className="mt-10 flex flex-wrap gap-4">
-                  <Link
-                    href="/cars"
-                    className="rounded-lg border border-white/20 bg-white/5 px-8 py-4 font-display text-sm font-bold uppercase italic tracking-wider text-white backdrop-blur-md transition-all hover:bg-white/10"
-                  >
-                    Смотреть каталог
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* right: form */}
-            <div className="bg-white p-10 md:p-12">
-              <LeadForm
-                type="CALLBACK"
-                title="Получить консультацию"
-                subtitle="Заполните форму — мы перезвоним и подберём для вас автомобиль."
-              />
-            </div>
+      {/* ===== CTA — single centered band ===== */}
+      <section id="zayavka" className="scroll-mt-24 border-t border-zinc-200 bg-zinc-50 py-20">
+        <div className="container mx-auto max-w-2xl px-4 text-center">
+          <h2 className="text-4xl font-bold uppercase tracking-tight text-zinc-900 md:text-5xl">
+            Свой отзыв вы оставите <span className="text-brand">за рулём</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-md text-zinc-600">
+            Оставьте телефон — менеджер подберёт автомобиль под ваш бюджет и условия.
+          </p>
+          <div className="mx-auto mt-10 max-w-md rounded-3xl border border-zinc-200 bg-white shadow-xl">
+            <LeadForm
+              type="CALLBACK"
+              title="Получить консультацию"
+              subtitle="Мы перезвоним и подберём для вас автомобиль."
+            />
           </div>
+          <Link href="/cars" className="mt-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-brand transition-colors hover:text-brand-dark">
+            Смотреть каталог
+            <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
     </div>

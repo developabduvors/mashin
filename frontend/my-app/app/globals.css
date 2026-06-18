@@ -46,6 +46,14 @@ h1, h2, h3, h4 {
   background-size: 44px 44px;
 }
 
+/* Yorug' fon uchun teskari panjara (Trade-in "blueprint" hero) */
+.bg-grid-light {
+  background-image:
+    linear-gradient(to right, rgba(24, 24, 27, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(24, 24, 27, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
 /* Sahifa yuklanganda staggered reveal */
 @keyframes rise {
   from {
