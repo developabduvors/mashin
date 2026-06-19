@@ -109,6 +109,15 @@ function RegisterForm() {
             Войти
           </Link>
         </p>
+
+        <div className="mt-4 border-t border-zinc-100 pt-4 text-center">
+          <Link
+            href="/admin/login"
+            className="text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors hover:text-brand"
+          >
+            Вход для администратора →
+          </Link>
+        </div>
       </form>
     </div>
   );

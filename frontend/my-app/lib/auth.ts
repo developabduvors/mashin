@@ -48,6 +48,14 @@ export async function login(email: string, password: string): Promise<AuthUser> 
   return data.user;
 }
 
+// Mavjud (buyer) sessiyadan admin sessiyasini o'rnatadi — ADMIN rolli foydalanuvchi
+// oddiy /login orqali kirsa, qayta so'rovsiz admin panelга kira oladi. Token bir xil
+// (JWT'da role bor), shuning uchun uni admin kalit ostiga ham yozamiz.
+export function setAdminSession(user: AuthUser, accessToken: string): void {
+  localStorage.setItem(TOKEN_KEY, accessToken);
+  localStorage.setItem(USER_KEY, JSON.stringify(user));
+}
+
 export function logout(): void {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);

@@ -25,8 +25,8 @@ interface AuthContextValue {
   ready: boolean;             // mount + dastlabki yuklash tugadimi
   isFavorite: (carId: string) => boolean;
   toggleFavorite: (carId: string) => Promise<void>; // auth talab qiladi
-  login: (email: string, password: string) => Promise<void>;
-  register: (payload: RegisterPayload) => Promise<void>;
+  login: (email: string, password: string) => Promise<AuthUser>;
+  register: (payload: RegisterPayload) => Promise<AuthUser>;
   updateUser: (user: AuthUser) => void; // profil tahrirlangach
   logout: () => void;
 }
@@ -90,12 +90,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const u = await loginBuyer(email, password);
     setUser(u);
     await loadFavorites();
+    return u;
   }, [loadFavorites]);
 
   const register = useCallback(async (payload: RegisterPayload) => {
     const u = await registerBuyer(payload);
     setUser(u);
     setFavorites(new Set()); // yangi akkaunt — bo'sh
+    return u;
   }, []);
 
   // Profil tahrirlangach: context + localStorage'ni yangilaydi.

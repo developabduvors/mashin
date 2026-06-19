@@ -4,6 +4,8 @@ import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { getBuyerToken } from '@/lib/buyer-auth';
+import { setAdminSession } from '@/lib/auth';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
@@ -23,8 +25,15 @@ function LoginForm() {
     setError('');
     setLoading(true);
     try {
-      await login(email, password);
-      router.push(next);
+      const user = await login(email, password);
+      // ADMIN bo'lsa: admin sessiyasini ham o'rnatamiz va admin panelга yo'naltiramiz.
+      if (user.role === 'ADMIN') {
+        const token = getBuyerToken();
+        if (token) setAdminSession(user, token);
+        router.push('/admin');
+      } else {
+        router.push(next);
+      }
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -86,6 +95,15 @@ function LoginForm() {
             Зарегистрироваться
           </Link>
         </p>
+
+        <div className="mt-4 border-t border-zinc-100 pt-4 text-center">
+          <Link
+            href="/admin/login"
+            className="text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors hover:text-brand"
+          >
+            Вход для администратора →
+          </Link>
+        </div>
       </form>
     </div>
   );
