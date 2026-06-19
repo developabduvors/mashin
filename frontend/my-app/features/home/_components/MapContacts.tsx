@@ -26,25 +26,25 @@ export const MapContacts = () => {
   const mapSrc = buildMapSrc(contacts?.dealerships[0]);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-zinc-950">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-12 lg:flex-row">
           {/* Left: Contacts Info */}
           <div className="flex-1">
-            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8">
+            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8 dark:text-zinc-50">
               Контакты
             </h2>
             
             <div className="space-y-10">
               {contacts?.dealerships.map((dealer) => (
                 <div key={dealer.id} className="border-l-4 border-brand pl-6">
-                  <h3 className="text-xl font-bold text-zinc-900">{dealer.address}</h3>
+                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">{dealer.address}</h3>
                   <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div>
                       <p className="text-[10px] font-bold uppercase text-zinc-400">Телефоны:</p>
                       <div className="mt-1 flex flex-col gap-1">
                         {dealer.phones.map((phone, idx) => (
-                          <a key={idx} href={`tel:${phone}`} className="text-lg font-bold text-zinc-900 hover:text-brand">
+                          <a key={idx} href={`tel:${phone}`} className="text-lg font-bold text-zinc-900 hover:text-brand dark:text-zinc-100">
                             {phone}
                           </a>
                         ))}
@@ -52,7 +52,7 @@ export const MapContacts = () => {
                     </div>
                     <div>
                       <p className="text-[10px] font-bold uppercase text-zinc-400">Режим работы:</p>
-                      <p className="mt-1 text-sm font-medium text-zinc-600">
+                      <p className="mt-1 text-sm font-medium text-zinc-600 dark:text-zinc-400">
                         {dealer.schedule || 'Ежедневно: 09:00 — 21:00'}
                       </p>
                     </div>
@@ -61,9 +61,9 @@ export const MapContacts = () => {
               ))}
               {!contacts && (
                 <div className="border-l-4 border-brand pl-6">
-                  <h3 className="text-xl font-bold text-zinc-900">г. Москва, ул. Автозаводская, 23/15</h3>
+                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">г. Москва, ул. Автозаводская, 23/15</h3>
                   <div className="mt-4 flex flex-col gap-1">
-                    <a href="tel:+78005553535" className="text-lg font-bold text-zinc-900 hover:text-brand">
+                    <a href="tel:+78005553535" className="text-lg font-bold text-zinc-900 hover:text-brand dark:text-zinc-100">
                       +7 (800) 555-35-35
                     </a>
                   </div>

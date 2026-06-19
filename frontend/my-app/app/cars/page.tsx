@@ -82,7 +82,7 @@ const CatalogContent = () => {
   const hasFilters = [...searchParams.keys()].length > 0;
 
   return (
-    <div className="bg-zinc-50">
+    <div className="bg-zinc-50 dark:bg-zinc-950">
       {/* ===== HERO ===== */}
       <section className="relative overflow-hidden bg-zinc-950 text-white">
         <div className="absolute inset-0 bg-grid opacity-60" />
@@ -115,7 +115,7 @@ const CatalogContent = () => {
       </section>
 
       {/* ===== BRAND SCROLLER ===== */}
-      <section className="border-b border-zinc-200 bg-white">
+      <section className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
         <div className="container mx-auto px-4 py-6">
           <div className="flex gap-3 overflow-x-auto scrollbar-hide">
             {brands.map((brand) => {
@@ -128,7 +128,7 @@ const CatalogContent = () => {
                     'flex min-w-[92px] flex-shrink-0 flex-col items-center gap-2 rounded-xl border px-4 py-3 transition-all',
                     active
                       ? 'border-brand bg-brand/5 shadow-sm'
-                      : 'border-zinc-200 bg-white hover:border-zinc-400',
+                      : 'border-zinc-200 bg-white hover:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-500',
                   )}
                 >
                   <div className="relative h-8 w-16">
@@ -161,9 +161,9 @@ const CatalogContent = () => {
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* SIDEBAR */}
           <aside className="w-full lg:w-72">
-            <div className="lg:sticky lg:top-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="lg:sticky lg:top-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
               <div className="mb-6 flex items-center justify-between">
-                <h3 className="font-display text-lg font-bold uppercase tracking-tight text-zinc-900">
+                <h3 className="font-display text-lg font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-50">
                   Фильтры
                 </h3>
                 {hasFilters && (
@@ -206,7 +206,7 @@ const CatalogContent = () => {
                 />
 
                 <div>
-                  <label className="text-sm font-semibold text-zinc-700">Цена, ₽</label>
+                  <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">Цена, ₽</label>
                   <div className="mt-2 flex items-center gap-2">
                     <input
                       type="number"
@@ -214,7 +214,7 @@ const CatalogContent = () => {
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
                       placeholder="от"
-                      className="h-10 w-full rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-brand focus:outline-none"
+                      className="h-10 w-full rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-brand focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
                     />
                     <span className="text-zinc-300">—</span>
                     <input
@@ -223,7 +223,7 @@ const CatalogContent = () => {
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
                       placeholder="до"
-                      className="h-10 w-full rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-brand focus:outline-none"
+                      className="h-10 w-full rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-brand focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
                     />
                   </div>
                 </div>
@@ -244,7 +244,7 @@ const CatalogContent = () => {
             <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
               <p className="text-sm font-medium text-zinc-500">
                 Найдено:{' '}
-                <span className="font-display text-base font-bold text-zinc-900">
+                <span className="font-display text-base font-bold text-zinc-900 dark:text-zinc-50">
                   {formatNumber(total)}
                 </span>{' '}
                 авто
@@ -263,7 +263,7 @@ const CatalogContent = () => {
                 {[...Array(6)].map((_, i) => (
                   <div
                     key={i}
-                    className="h-[420px] w-full animate-pulse rounded-xl border border-zinc-100 bg-zinc-200/60"
+                    className="h-[420px] w-full animate-pulse rounded-xl border border-zinc-100 bg-zinc-200/60 dark:border-zinc-800 dark:bg-zinc-800/60"
                   />
                 ))}
               </div>
@@ -297,8 +297,8 @@ const CatalogContent = () => {
                 )}
               </>
             ) : (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 bg-white py-24 text-center">
-                <div className="font-display text-2xl font-bold uppercase tracking-tight text-zinc-900">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 bg-white py-24 text-center dark:border-zinc-700 dark:bg-zinc-900">
+                <div className="font-display text-2xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-50">
                   Ничего не найдено
                 </div>
                 <p className="mt-2 max-w-sm text-sm text-zinc-500">

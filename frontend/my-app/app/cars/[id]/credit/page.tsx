@@ -60,9 +60,9 @@ export default function CarCreditPage() {
   const maxDown = Math.round((car.price * 0.9) / 50_000) * 50_000;
 
   return (
-    <div className="bg-zinc-50">
+    <div className="bg-zinc-50 dark:bg-zinc-950">
       {/* ===== breadcrumb + car header ===== */}
-      <section className="border-b border-zinc-200 bg-white">
+      <section className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
         <div className="container mx-auto px-4 py-6">
           <nav className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-400">
             <Link href="/cars" className="hover:text-brand">Каталог</Link>
@@ -73,7 +73,7 @@ export default function CarCreditPage() {
           </nav>
 
           <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
-            <div className="relative h-24 w-36 flex-shrink-0 overflow-hidden rounded-xl bg-zinc-100">
+            <div className="relative h-24 w-36 flex-shrink-0 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800">
               <Image
                 src={car.coverImage || car.images?.[0]?.url || '/design/bois/7-mashina-detali-A.jpg'}
                 alt={`${car.brand} ${car.model}`}
@@ -83,7 +83,7 @@ export default function CarCreditPage() {
               />
             </div>
             <div>
-              <h1 className="font-display text-3xl font-bold uppercase tracking-tight text-zinc-900 md:text-4xl">
+              <h1 className="font-display text-3xl font-bold uppercase tracking-tight text-zinc-900 md:text-4xl dark:text-zinc-50">
                 {car.brand} {car.model} <span className="text-brand">в кредит</span>
               </h1>
               <p className="mt-1 text-sm text-zinc-500">
@@ -98,8 +98,8 @@ export default function CarCreditPage() {
       <section className="py-12 md:py-16">
         <div className="container mx-auto grid grid-cols-1 gap-8 px-4 lg:grid-cols-[1fr_400px]">
           {/* calculator */}
-          <div className="rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm md:p-10">
-            <h2 className="font-display text-2xl font-bold uppercase tracking-tight text-zinc-900">
+          <div className="rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm md:p-10 dark:border-zinc-800 dark:bg-zinc-900">
+            <h2 className="font-display text-2xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-50">
               Кредитный калькулятор
             </h2>
 
@@ -115,10 +115,10 @@ export default function CarCreditPage() {
                       className={`rounded-lg border px-4 py-2 text-left transition-all ${
                         p.id === programId
                           ? 'border-brand bg-brand/5'
-                          : 'border-zinc-200 hover:border-brand/50'
+                          : 'border-zinc-200 hover:border-brand/50 dark:border-zinc-700'
                       }`}
                     >
-                      <span className="block text-xs font-bold uppercase tracking-wide text-zinc-900">{p.title}</span>
+                      <span className="block text-xs font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100">{p.title}</span>
                       <span className="block font-display text-lg font-bold leading-tight text-brand">от {p.ratePercent}%</span>
                     </button>
                   ))}
@@ -132,7 +132,7 @@ export default function CarCreditPage() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">
                   Первоначальный взнос
                 </span>
-                <span className="font-display text-lg font-bold text-zinc-900 tabular-nums">
+                <span className="font-display text-lg font-bold text-zinc-900 tabular-nums dark:text-zinc-100">
                   {formatNumber(down)} ₽ · {Math.round((down / car.price) * 100)}%
                 </span>
               </div>
@@ -147,7 +147,7 @@ export default function CarCreditPage() {
             <div className="mt-7">
               <div className="flex items-baseline justify-between">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">Срок кредита</span>
-                <span className="font-display text-lg font-bold text-zinc-900 tabular-nums">{term} мес.</span>
+                <span className="font-display text-lg font-bold text-zinc-900 tabular-nums dark:text-zinc-100">{term} мес.</span>
               </div>
               <input
                 type="range" min={12} max={84} step={6} value={term}
@@ -190,7 +190,7 @@ export default function CarCreditPage() {
 
           {/* application — sticky */}
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-3xl border-2 border-brand bg-white shadow-xl">
+            <div className="rounded-3xl border-2 border-brand bg-white shadow-xl dark:bg-zinc-900">
               <LeadForm
                 type="CREDIT_APPLICATION"
                 carId={car.id}

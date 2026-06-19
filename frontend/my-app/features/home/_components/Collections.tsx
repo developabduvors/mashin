@@ -16,9 +16,9 @@ export const Collections = () => {
   if (collections.length === 0) return null;
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-zinc-950">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12">
+        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12 dark:text-zinc-50">
           Наши подборки
         </h2>
         
@@ -27,7 +27,7 @@ export const Collections = () => {
             <Link 
               key={collection.id}
               href={`/collections/${collection.slug}`}
-              className="group relative h-[300px] min-w-[300px] flex-shrink-0 overflow-hidden rounded-xl bg-zinc-100 sm:min-w-[400px]"
+              className="group relative h-[300px] min-w-[300px] flex-shrink-0 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:min-w-[400px]"
             >
               <Image
                 src={collection.imageUrl || '/placeholder-collection.jpg'}

@@ -17,9 +17,9 @@ export const SpecialOffers = () => {
   if (programs.length === 0) return null;
 
   return (
-    <section className="py-20 bg-zinc-50">
+    <section className="py-20 bg-zinc-50 dark:bg-zinc-900">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12">
+        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12 dark:text-zinc-50">
           Спецпредложения
         </h2>
         
@@ -27,7 +27,7 @@ export const SpecialOffers = () => {
           {programs.map((program) => (
             <div 
               key={program.id}
-              className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:shadow-xl"
+              className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:shadow-xl dark:bg-zinc-800"
             >
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
@@ -42,14 +42,14 @@ export const SpecialOffers = () => {
               </div>
               
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-xl font-black uppercase tracking-tighter text-zinc-900">
+                <h3 className="text-xl font-black uppercase tracking-tighter text-zinc-900 dark:text-zinc-50">
                   {program.title}
                 </h3>
-                <p className="mt-2 text-sm text-zinc-500 line-clamp-2">
+                <p className="mt-2 text-sm text-zinc-500 line-clamp-2 dark:text-zinc-400">
                   {program.description}
                 </p>
                 <Link href={`/credit/${program.slug}`} className="mt-6">
-                  <Button variant="outline" className="w-full font-bold uppercase tracking-wider text-xs text-zinc-900">
+                  <Button variant="outline" className="w-full font-bold uppercase tracking-wider text-xs text-zinc-900 dark:text-zinc-100">
                     Узнать больше
                   </Button>
                 </Link>

@@ -15,12 +15,12 @@ export const AboutBlog = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-zinc-50">
+    <section className="py-20 bg-zinc-50 dark:bg-zinc-900">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
           {/* About Section */}
           <div>
-            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8">
+            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8 dark:text-zinc-50">
               О компании ABC AUTO
             </h2>
             <div className="relative h-64 w-full overflow-hidden rounded-3xl mb-8">
@@ -31,7 +31,7 @@ export const AboutBlog = () => {
                 className="object-cover"
               />
             </div>
-            <div className="space-y-4 text-zinc-600">
+            <div className="space-y-4 text-zinc-600 dark:text-zinc-400">
               <p>
                 ABC Auto — это не просто автосалон, это команда профессионалов, которая уже более 10 лет помогает людям находить их идеальные автомобили. Мы являемся официальным партнером ведущих мировых брендов.
               </p>
@@ -47,7 +47,7 @@ export const AboutBlog = () => {
           {/* Blog Section */}
           <div>
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900">
+              <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 dark:text-zinc-50">
                 Блог
               </h2>
               <Link href="/blog" className="text-xs font-bold uppercase tracking-wider text-brand hover:underline">
@@ -73,7 +73,7 @@ export const AboutBlog = () => {
                   <span className="text-[10px] font-bold uppercase text-zinc-400">
                     {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : 'Недавно'}
                   </span>
-                  <h3 className="mt-2 font-bold text-zinc-900 line-clamp-2 group-hover:text-brand">
+                  <h3 className="mt-2 font-bold text-zinc-900 line-clamp-2 group-hover:text-brand dark:text-zinc-50">
                     {post.title}
                   </h3>
                 </Link>

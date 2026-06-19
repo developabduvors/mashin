@@ -19,14 +19,14 @@ export const PtsCars = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-zinc-50">
+    <section className="py-20 bg-zinc-50 dark:bg-zinc-900">
       <div className="container mx-auto px-4">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900">
+            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 dark:text-zinc-50">
               Автомобили в наличии с ПТС
             </h2>
-            <p className="mt-2 text-zinc-500">
+            <p className="mt-2 text-zinc-500 dark:text-zinc-400">
               Более 500 автомобилей готовы к выдаче в день обращения
             </p>
           </div>
@@ -40,7 +40,7 @@ export const PtsCars = () => {
         {loading ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, idx) => (
-              <div key={idx} className="h-[400px] w-full animate-pulse rounded-lg bg-zinc-200" />
+              <div key={idx} className="h-[400px] w-full animate-pulse rounded-lg bg-zinc-200 dark:bg-zinc-800" />
             ))}
           </div>
         ) : cars.length > 0 ? (

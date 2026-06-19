@@ -14,9 +14,9 @@ export const Ratings = () => {
   if (ratings.length === 0) return null;
 
   return (
-    <section className="py-20 bg-zinc-50">
+    <section className="py-20 bg-zinc-50 dark:bg-zinc-900">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12">
+        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12 dark:text-zinc-50">
           Нам доверяют
         </h2>
         
@@ -27,18 +27,18 @@ export const Ratings = () => {
               href={rating.url || '#'}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-6 rounded-2xl bg-white p-6 shadow-sm transition-all hover:shadow-md"
+              className="flex items-center gap-6 rounded-2xl bg-white p-6 shadow-sm transition-all hover:shadow-md dark:bg-zinc-800"
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-zinc-100 font-black text-brand">
+              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-zinc-100 font-black text-brand dark:bg-zinc-700">
                 {rating.rating}
               </div>
               <div>
-                <h3 className="font-bold text-zinc-900">{rating.platform}</h3>
+                <h3 className="font-bold text-zinc-900 dark:text-zinc-50">{rating.platform}</h3>
                 <div className="mt-1 flex gap-1">
                   {[...Array(5)].map((_, i) => (
                     <svg 
                       key={i} 
-                      className={`h-4 w-4 ${i < Math.floor(rating.rating) ? 'text-yellow-400' : 'text-zinc-200'}`} 
+                      className={`h-4 w-4 ${i < Math.floor(rating.rating) ? 'text-yellow-400' : 'text-zinc-200 dark:text-zinc-700'}`}
                       fill="currentColor" 
                       viewBox="0 0 20 20"
                     >

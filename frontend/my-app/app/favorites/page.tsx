@@ -37,7 +37,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="bg-zinc-50">
+    <div className="bg-zinc-50 dark:bg-zinc-950">
       <section className="relative overflow-hidden bg-zinc-950 text-white">
         <div className="absolute inset-0 bg-grid opacity-60" />
         <div className="absolute -right-24 -top-24 h-72 w-72 rotate-12 bg-brand/20 blur-3xl" />
@@ -63,7 +63,7 @@ export default function FavoritesPage() {
             {[...Array(3)].map((_, i) => (
               <div
                 key={i}
-                className="h-[420px] w-full animate-pulse rounded-xl border border-zinc-100 bg-zinc-200/60"
+                className="h-[420px] w-full animate-pulse rounded-xl border border-zinc-100 bg-zinc-200/60 dark:border-zinc-800 dark:bg-zinc-800/60"
               />
             ))}
           </div>
@@ -74,8 +74,8 @@ export default function FavoritesPage() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 bg-white py-24 text-center">
-            <div className="font-display text-2xl font-bold uppercase tracking-tight text-zinc-900">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 bg-white py-24 text-center dark:border-zinc-700 dark:bg-zinc-900">
+            <div className="font-display text-2xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-50">
               Список пуст
             </div>
             <p className="mt-2 max-w-sm text-sm text-zinc-500">

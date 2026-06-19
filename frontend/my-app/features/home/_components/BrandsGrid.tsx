@@ -36,12 +36,12 @@ export const BrandsGrid = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-zinc-950">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-12 lg:flex-row">
           {/* Left: Brands Grid */}
           <div className="flex-1">
-            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8">
+            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8 dark:text-zinc-50">
               Выберите марку
             </h2>
             <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-4 xl:grid-cols-5">
@@ -49,7 +49,7 @@ export const BrandsGrid = () => {
                 <Link
                   key={brand.id}
                   href={`/cars?brand=${brand.slug}`}
-                  className="group flex flex-col items-center justify-center rounded-lg border border-zinc-100 p-4 transition-all hover:border-brand hover:shadow-lg"
+                  className="group flex flex-col items-center justify-center rounded-lg border border-zinc-100 p-4 transition-all hover:border-brand hover:shadow-lg dark:border-zinc-800"
                 >
                   <div className="relative h-12 w-full grayscale transition-all group-hover:grayscale-0">
                     <BrandLogo src={brand.logoUrl} name={brand.name} />

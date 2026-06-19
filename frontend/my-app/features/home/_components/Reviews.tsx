@@ -15,9 +15,9 @@ export const Reviews = () => {
   if (reviews.length === 0) return null;
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-zinc-950">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12">
+        <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-12 dark:text-zinc-50">
           Отзывы наших клиентов
         </h2>
         
@@ -25,7 +25,7 @@ export const Reviews = () => {
           {reviews.map((review) => (
             <div 
               key={review.id}
-              className="flex h-[350px] min-w-[300px] flex-shrink-0 flex-col rounded-2xl bg-zinc-50 p-8 md:min-w-[400px]"
+              className="flex h-[350px] min-w-[300px] flex-shrink-0 flex-col rounded-2xl bg-zinc-50 p-8 md:min-w-[400px] dark:bg-zinc-900"
             >
               <div className="flex items-center gap-4">
                 {/* Review modelida foto yo'q — ism bosh harfidan avatar yasaymiz */}
@@ -33,12 +33,12 @@ export const Reviews = () => {
                   {review.author.trim().charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <h3 className="font-bold text-zinc-900">{review.author}</h3>
+                  <h3 className="font-bold text-zinc-900 dark:text-zinc-50">{review.author}</h3>
                   <p className="text-xs text-zinc-400">{review.source || 'Покупатель'}</p>
                 </div>
               </div>
-              
-              <div className="mt-6 flex-1 text-sm leading-relaxed text-zinc-600 line-clamp-6">
+
+              <div className="mt-6 flex-1 text-sm leading-relaxed text-zinc-600 line-clamp-6 dark:text-zinc-300">
                 "{review.text}"
               </div>
               
@@ -47,7 +47,7 @@ export const Reviews = () => {
                   {[...Array(5)].map((_, i) => (
                     <svg 
                       key={i} 
-                      className={`h-4 w-4 ${i < (review.rating || 5) ? 'text-yellow-400' : 'text-zinc-200'}`} 
+                      className={`h-4 w-4 ${i < (review.rating || 5) ? 'text-yellow-400' : 'text-zinc-200 dark:text-zinc-700'}`}
                       fill="currentColor" 
                       viewBox="0 0 20 20"
                     >

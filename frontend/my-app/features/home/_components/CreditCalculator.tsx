@@ -37,12 +37,12 @@ export const CreditCalculator = () => {
   const monthlyPayment = Math.round((amount - downPayment) / term * 1.05); // Simplified calculation
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-zinc-950">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-12 lg:flex-row">
           {/* Left: Calculator */}
-          <div className="flex-1 rounded-3xl bg-zinc-50 p-8 shadow-sm md:p-12">
-            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8">
+          <div className="flex-1 rounded-3xl bg-zinc-50 p-8 shadow-sm md:p-12 dark:bg-zinc-900">
+            <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 mb-8 dark:text-zinc-50">
               Заявка на автокредит
             </h2>
             
@@ -67,7 +67,7 @@ export const CreditCalculator = () => {
               <div className="flex flex-col gap-4 md:col-span-2">
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between text-sm font-bold">
-                    <span className="text-zinc-700">Сумма кредита</span>
+                    <span className="text-zinc-700 dark:text-zinc-300">Сумма кредита</span>
                     <span className="text-brand">{formatNumber(amount)} ₽</span>
                   </div>
                   <input 
@@ -77,13 +77,13 @@ export const CreditCalculator = () => {
                     step="50000"
                     value={amount}
                     onChange={(e) => setAmount(Number(e.target.value))}
-                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand"
+                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand dark:bg-zinc-700"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between text-sm font-bold">
-                    <span className="text-zinc-700">Срок (мес.)</span>
+                    <span className="text-zinc-700 dark:text-zinc-300">Срок (мес.)</span>
                     <span className="text-brand">{term} мес.</span>
                   </div>
                   <input 
@@ -93,13 +93,13 @@ export const CreditCalculator = () => {
                     step="6"
                     value={term}
                     onChange={(e) => setTerm(Number(e.target.value))}
-                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand"
+                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand dark:bg-zinc-700"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between text-sm font-bold">
-                    <span className="text-zinc-700">Первоначальный взнос</span>
+                    <span className="text-zinc-700 dark:text-zinc-300">Первоначальный взнос</span>
                     <span className="text-brand">{formatNumber(downPayment)} ₽</span>
                   </div>
                   <input 
@@ -109,7 +109,7 @@ export const CreditCalculator = () => {
                     step="10000"
                     value={downPayment}
                     onChange={(e) => setDownPayment(Number(e.target.value))}
-                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand"
+                    className="h-2 w-full appearance-none rounded-lg bg-zinc-200 accent-brand dark:bg-zinc-700"
                   />
                 </div>
               </div>
@@ -118,11 +118,11 @@ export const CreditCalculator = () => {
 
           {/* Right: Lead Form */}
           <div className="w-full lg:w-[450px]">
-            <div className="h-full rounded-3xl border-4 border-brand bg-white p-8 shadow-2xl md:p-12">
+            <div className="h-full rounded-3xl border-4 border-brand bg-white p-8 shadow-2xl md:p-12 dark:bg-zinc-900">
               <div className="text-center">
                 <div className="text-sm font-bold uppercase tracking-widest text-zinc-400">Ваш ежемесячный платёж</div>
                 <div className="mt-2 text-5xl font-black text-brand">{formatNumber(monthlyPayment)} ₽</div>
-                <div className="mt-8 rounded-lg bg-green-50 px-4 py-2 text-sm font-bold text-green-700">
+                <div className="mt-8 rounded-lg bg-green-50 px-4 py-2 text-sm font-bold text-green-700 dark:bg-green-500/10 dark:text-green-400">
                   Ваша выгода до 300 000 ₽
                 </div>
               </div>
