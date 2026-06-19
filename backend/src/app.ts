@@ -9,6 +9,8 @@ import { leadsRouter, adminLeadsRouter } from "./modules/leads/leads.routes";
 import { collectionsRouter } from "./modules/collections/collections.routes";
 import { creditRouter } from "./modules/credit/credit.routes";
 import { contentRouter } from "./modules/content/content.routes";
+import { favoritesRouter } from "./modules/favorites/favorites.routes";
+import { purchasesRouter } from "./modules/purchases/purchases.routes";
 import { adminRouter } from "./modules/admin/admin.routes";
 import { errorHandler } from "./middleware/errorHandler";
 
@@ -28,6 +30,8 @@ export function createApp() {
   app.use("/api", collectionsRouter);
   app.use("/api", creditRouter);
   app.use("/api", contentRouter);
+  app.use("/api", favoritesRouter);
+  app.use("/api", purchasesRouter);
   app.use("/api", adminRouter);
 
   app.get("/health", (_req, res) => {

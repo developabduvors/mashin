@@ -19,7 +19,7 @@ export const Select = ({ label, error, options, className = '', ...props }: Sele
         // text-zinc-900 default — och fonda ko'rinadi; cn() bilan uzatilgan
         // className (masalan text-white) to'qnashuvda ishonchli yutadi.
         className={cn(
-          'flex h-10 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'flex h-10 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:ring-offset-zinc-900',
           className,
         )}
         {...props}

@@ -4,12 +4,26 @@ import React, { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
 import { ContactsResult } from '@/lib/types';
 
+// Yandex map-widget — API kalitisiz interaktiv xarita.
+// Koordinata bo'lsa aniq nuqta, bo'lmasa manzil matni bo'yicha qidiruv.
+const DEFAULT_QUERY = 'Москва, МКАД 19 км';
+
+const buildMapSrc = (dealer?: { address: string; lat?: number; lng?: number }) => {
+  if (dealer?.lat != null && dealer?.lng != null) {
+    return `https://yandex.ru/map-widget/v1/?ll=${dealer.lng},${dealer.lat}&z=16&pt=${dealer.lng},${dealer.lat},pm2rdm`;
+  }
+  const text = encodeURIComponent(dealer?.address || DEFAULT_QUERY);
+  return `https://yandex.ru/map-widget/v1/?text=${text}&z=16`;
+};
+
 export const MapContacts = () => {
   const [contacts, setContacts] = useState<ContactsResult | null>(null);
 
   useEffect(() => {
     api.contacts.get('moskva').then(setContacts).catch(console.error);
   }, []);
+
+  const mapSrc = buildMapSrc(contacts?.dealerships[0]);
 
   return (
     <section className="py-20 bg-white">
@@ -58,22 +72,15 @@ export const MapContacts = () => {
             </div>
           </div>
 
-          {/* Right: Map Placeholder */}
+          {/* Right: Interactive Yandex map (keyless widget) */}
           <div className="relative h-[400px] w-full overflow-hidden rounded-3xl bg-zinc-100 lg:w-1/2">
-            {/* In a real project, we'd use Yandex or Google Maps here */}
-            <div className="absolute inset-0 flex items-center justify-center text-center p-10">
-              <div className="flex flex-col items-center">
-                <svg className="h-12 w-12 text-brand mb-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-                <p className="font-bold text-zinc-500 italic">Интерактивная карта загружается...</p>
-                <p className="text-xs text-zinc-400 mt-2 max-w-xs">
-                  Здесь будет отображена карта с расположением всех дилерских центров ABC AUTO
-                </p>
-              </div>
-            </div>
-            {/* Background pattern to simulate map */}
-            <div className="absolute inset-0 -z-10 opacity-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
+            <iframe
+              src={mapSrc}
+              title="Карта ABC AUTO"
+              className="absolute inset-0 h-full w-full border-0"
+              loading="lazy"
+              allowFullScreen
+            />
           </div>
         </div>
       </div>

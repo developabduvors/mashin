@@ -8,7 +8,7 @@ import { CarCard } from '@/components/shared/CarCard';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
 import { cn, formatNumber } from '@/lib/utils';
-import Image from 'next/image';
+import { BrandLogo } from '@/components/shared/BrandLogo';
 
 const BODY_OPTIONS = [
   { label: 'Любой кузов', value: '' },
@@ -132,10 +132,9 @@ const CatalogContent = () => {
                   )}
                 >
                   <div className="relative h-8 w-16">
-                    <Image
-                      src={brand.logoUrl || '/placeholder-logo.png'}
-                      alt={brand.name}
-                      fill
+                    <BrandLogo
+                      src={brand.logoUrl}
+                      name={brand.name}
                       className={cn(
                         'object-contain transition',
                         active ? '' : 'opacity-70 grayscale group-hover:grayscale-0',

@@ -1,10 +1,22 @@
 @import "tailwindcss";
 
+/* dark: variantni `.dark` ajdod klassiga bog'laymiz (prefers-color-scheme emas).
+   Shu bilan dark mode'ni butun sayt emas, faqat bitta konteyner (profil)
+   ichida yoqish mumkin. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #18181b;
   --brand: #c1121f;
   --brand-dark: #8d0d17;
+}
+
+/* Qorong'i rejim — <html>.dark bo'lganda asosiy fon/matn tokenlari almashadi.
+   Body var(--background) ishlatgani uchun butun sahifa foni avtomatik o'zgaradi. */
+.dark {
+  --background: #09090b;
+  --foreground: #ededed;
 }
 
 @theme inline {

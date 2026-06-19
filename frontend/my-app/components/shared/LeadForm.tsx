@@ -80,8 +80,8 @@ export const LeadForm = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold">Спасибо!</h3>
-        <p className="mt-2 text-zinc-600">Ваша заявка принята. Менеджер свяжется с вами в ближайшее время.</p>
+        <h3 className="text-xl font-bold dark:text-zinc-50">Спасибо!</h3>
+        <p className="mt-2 text-zinc-600 dark:text-zinc-400">Ваша заявка принята. Менеджер свяжется с вами в ближайшее время.</p>
       </div>
     );
   }
@@ -90,8 +90,8 @@ export const LeadForm = ({
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-6">
       {(title || subtitle) && (
         <div className="mb-4 text-center">
-          {title && <h3 className="text-2xl font-black uppercase text-zinc-900">{title}</h3>}
-          {subtitle && <p className="mt-2 text-sm text-zinc-600">{subtitle}</p>}
+          {title && <h3 className="text-2xl font-black uppercase text-zinc-900 dark:text-zinc-50">{title}</h3>}
+          {subtitle && <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{subtitle}</p>}
         </div>
       )}
       

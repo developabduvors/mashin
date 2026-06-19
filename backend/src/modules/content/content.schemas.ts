@@ -11,3 +11,13 @@ export const contactsQuerySchema = z.object({
 });
 
 export type ContactsQuery = z.infer<typeof contactsQuerySchema>["query"];
+
+// Otziv yozish (login talab qiladi). author logindan olinadi — kiritilmaydi.
+export const createReviewSchema = z.object({
+  body: z.object({
+    text: z.string().trim().min(10, "Otziv kamida 10 ta belgi bo'lsin").max(1000),
+    rating: z.coerce.number().int().min(1).max(5),
+  }),
+});
+
+export type CreateReviewInput = z.infer<typeof createReviewSchema>["body"];

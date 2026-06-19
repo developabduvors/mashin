@@ -18,6 +18,32 @@ adminRouter.use(authenticate, authorize("ADMIN"));
 // Dashboard
 adminRouter.get("/admin/stats", statsController.get);
 
+// Foydalanuvchilar ro'yxati (purchase formasida dropdown uchun) — passwordHash CHIQMAYDI.
+adminRouter.get("/admin/users", async (_req, res, next) => {
+  try {
+    const users = await prisma.user.findMany({
+      where: { role: "BUYER" },
+      select: { id: true, fullName: true, email: true, phone: true },
+      orderBy: { createdAt: "desc" },
+    });
+    res.status(200).json({ users });
+  } catch (e) { next(e); }
+});
+
+// Sotib olingan mashinalar — admin biriktiradi/o'chiradi.
+adminRouter.use("/admin/purchases", createCrudRouter({
+  delegate: d(prisma.purchase),
+  createSchema: s.purchaseCreate,
+  updateSchema: s.purchaseCreate.partial(),
+  code: "PURCHASE",
+  orderBy: { createdAt: "desc" },
+  // user relation'da SELECT — passwordHash hech qachon chiqmaydi.
+  include: {
+    user: { select: { id: true, fullName: true, email: true } },
+    car: { include: { brand: true, model: true, images: true } },
+  },
+}));
+
 // Collection ↔ Car a'zolik (CRUD'dan oldin — aniqroq yo'l)
 adminRouter.post("/admin/collections/:id/cars", collectionCarsController.add);
 adminRouter.delete("/admin/collections/:id/cars/:carId", collectionCarsController.remove);

@@ -2,6 +2,13 @@ import { z } from "zod";
 
 // Har resurs: create (majburiy maydonlar) + update (hammasi optional = .partial()).
 
+// Sotib olingan mashina — admin user'ga mashinani biriktiradi.
+export const purchaseCreate = z.object({
+  userId: z.string().uuid(),
+  carId: z.string().uuid(),
+  purchasedAt: z.coerce.date().optional(),
+});
+
 export const brandCreate = z.object({
   name: z.string().min(1),
   slug: z.string().min(1),

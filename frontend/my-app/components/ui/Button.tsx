@@ -17,8 +17,8 @@ export const Button = ({
   const variants = {
     primary: 'bg-[#C1121F] text-white hover:bg-[#A00F19]',
     secondary: 'bg-zinc-900 text-zinc-50 hover:bg-zinc-900/90',
-    outline: 'border border-zinc-200 bg-white hover:bg-zinc-100 hover:text-zinc-900',
-    ghost: 'hover:bg-zinc-100 hover:text-zinc-900',
+    outline: 'border border-zinc-200 bg-white hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700',
+    ghost: 'hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800',
     danger: 'bg-red-500 text-zinc-50 hover:bg-red-500/90',
   };
   

@@ -2,9 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { api } from '@/lib/api';
 import { CityItem } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
 const NAV = [
   { href: '/cars', label: 'Каталог' },
@@ -15,6 +18,8 @@ const NAV = [
 ];
 
 export const Header = () => {
+  const pathname = usePathname();
+  const { user, favorites, logout } = useAuth();
   const [cities, setCities] = useState<CityItem[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>('moskva');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,6 +31,9 @@ export const Header = () => {
       if (def) setSelectedCity(def.slug);
     }).catch(console.error);
   }, []);
+
+  // Admin panel o'z chrome'iga ega — public header ko'rinmaydi.
+  if (pathname?.startsWith('/admin')) return null;
 
   return (
     <header className="sticky top-0 z-50">
@@ -74,7 +82,7 @@ export const Header = () => {
       </div>
 
       {/* ===== MAIN NAV ===== */}
-      <div className="border-b border-zinc-200 bg-white/90 backdrop-blur-md">
+      <div className="border-b border-zinc-200 bg-white/90 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-900/90">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
@@ -88,7 +96,7 @@ export const Header = () => {
             </Link>
 
             <nav className="hidden lg:block">
-              <ul className="flex items-center gap-7 font-display text-sm font-semibold uppercase tracking-wide text-zinc-900">
+              <ul className="flex items-center gap-7 font-display text-sm font-semibold uppercase tracking-wide text-zinc-900 dark:text-zinc-100">
                 {NAV.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className="group relative transition-colors hover:text-brand">
@@ -102,12 +110,58 @@ export const Header = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="hidden items-center gap-2 font-semibold text-zinc-900 transition-colors hover:text-brand xl:flex">
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+            <ThemeToggle className="hidden lg:flex" />
+            <Link
+              href="/favorites"
+              className="relative hidden items-center gap-2 font-semibold text-zinc-900 transition-colors hover:text-brand dark:text-zinc-100 xl:flex"
+            >
+              <span className="relative">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                {favorites.size > 0 && (
+                  <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand px-1 text-[10px] font-bold leading-none text-white">
+                    {favorites.size}
+                  </span>
+                )}
+              </span>
               <span className="text-sm">Избранное</span>
-            </button>
+            </Link>
+
+            {user ? (
+              <>
+                <Link
+                  href="/profile"
+                  title={user.fullName}
+                  className="hidden items-center gap-2 font-semibold text-zinc-900 transition-colors hover:text-brand dark:text-zinc-100 lg:flex"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span className="text-sm">{user.fullName.split(' ')[0]}</span>
+                </Link>
+                <button
+                  onClick={logout}
+                  title="Выйти"
+                  className="hidden items-center gap-2 font-semibold text-zinc-900 transition-colors hover:text-brand dark:text-zinc-100 lg:flex"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  <span className="text-sm">Выйти</span>
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="hidden items-center gap-2 font-semibold text-zinc-900 transition-colors hover:text-brand dark:text-zinc-100 lg:flex"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span className="text-sm">Войти</span>
+              </Link>
+            )}
 
             <a
               href="tel:+78005553535"
@@ -115,6 +169,8 @@ export const Header = () => {
             >
               Заказать звонок
             </a>
+
+            <ThemeToggle className="lg:hidden" />
 
             {/* mobile toggle */}
             <button
@@ -136,14 +192,14 @@ export const Header = () => {
         {/* ===== MOBILE MENU ===== */}
         <div
           className={cn(
-            'overflow-hidden border-t border-zinc-100 bg-white transition-[max-height] duration-300 ease-out lg:hidden',
+            'overflow-hidden border-t border-zinc-100 bg-white transition-[max-height] duration-300 ease-out dark:border-zinc-800 dark:bg-zinc-900 lg:hidden',
             menuOpen ? 'max-h-96' : 'max-h-0',
           )}
         >
           <nav className="container mx-auto px-4 py-2">
-            <ul className="flex flex-col font-display text-base font-semibold uppercase tracking-wide text-zinc-900">
+            <ul className="flex flex-col font-display text-base font-semibold uppercase tracking-wide text-zinc-900 dark:text-zinc-100">
               {NAV.map((item) => (
-                <li key={item.href} className="border-b border-zinc-100 last:border-0">
+                <li key={item.href} className="border-b border-zinc-100 last:border-0 dark:border-zinc-800">
                   <Link
                     href={item.href}
                     onClick={() => setMenuOpen(false)}

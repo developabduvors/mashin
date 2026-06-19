@@ -13,6 +13,14 @@ export const authRepository = {
     return prisma.user.create({ data });
   },
 
+  updateUser(id: string, data: { fullName?: string; phone?: string | null }) {
+    return prisma.user.update({ where: { id }, data });
+  },
+
+  updatePassword(id: string, passwordHash: string) {
+    return prisma.user.update({ where: { id }, data: { passwordHash } });
+  },
+
   storeRefreshToken(data: { token: string; userId: string; expiresAt: Date }) {
     return prisma.refreshToken.create({ data });
   },

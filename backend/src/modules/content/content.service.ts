@@ -1,7 +1,7 @@
-import type { Dealership } from "@prisma/client";
+import type { Dealership, Review } from "@prisma/client";
 import { contentRepository } from "./content.repository";
 import { AppError } from "../../utils/AppError";
-import type { ContactsQuery } from "./content.schemas";
+import type { ContactsQuery, CreateReviewInput } from "./content.schemas";
 import type {
   PartnerBankItem,
   ReviewItem,
@@ -12,6 +12,17 @@ import type {
   DealershipItem,
   ContactsResult,
 } from "./content.types";
+
+function toReviewItem(r: Review): ReviewItem {
+  return {
+    id: r.id,
+    author: r.author,
+    text: r.text,
+    source: r.source,
+    rating: r.rating,
+    createdAt: r.createdAt.toISOString(),
+  };
+}
 
 function toDealership(d: Dealership): DealershipItem {
   return {
@@ -37,14 +48,20 @@ export const contentService = {
 
   async reviews(): Promise<ReviewItem[]> {
     const reviews = await contentRepository.findPublishedReviews();
-    return reviews.map((r) => ({
-      id: r.id,
-      author: r.author,
-      text: r.text,
-      source: r.source,
-      rating: r.rating,
-      createdAt: r.createdAt.toISOString(),
-    }));
+    return reviews.map(toReviewItem);
+  },
+
+  // Login qilgan buyer otziv yozadi. author req'dan EMAS — DB'dagi fullName'dan.
+  async createReview(userId: string, input: CreateReviewInput): Promise<ReviewItem> {
+    const user = await contentRepository.findUserById(userId);
+    if (!user) throw new AppError("Foydalanuvchi topilmadi", 404, "USER_NOT_FOUND");
+    const review = await contentRepository.createReview({
+      userId,
+      author: user.fullName,
+      text: input.text,
+      rating: input.rating,
+    });
+    return toReviewItem(review);
   },
 
   async ratings(): Promise<RatingItem[]> {

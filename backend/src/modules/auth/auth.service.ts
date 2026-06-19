@@ -7,7 +7,12 @@ import {
 } from "../../lib/jwt";
 import { AppError } from "../../utils/AppError";
 import { env } from "../../config/env";
-import type { RegisterInput, LoginInput } from "./auth.schemas";
+import type {
+  RegisterInput,
+  LoginInput,
+  UpdateMeInput,
+  ChangePasswordInput,
+} from "./auth.schemas";
 import type { UserDTO, TokenPair } from "./auth.types";
 
 type DbUser = {
@@ -79,5 +84,19 @@ export const authService = {
     const user = await authRepository.findUserById(userId);
     if (!user) throw new AppError("Foydalanuvchi topilmadi", 404, "USER_NOT_FOUND");
     return toDTO(user);
+  },
+
+  async updateProfile(userId: string, input: UpdateMeInput): Promise<UserDTO> {
+    const user = await authRepository.updateUser(userId, input);
+    return toDTO(user);
+  },
+
+  async changePassword(userId: string, input: ChangePasswordInput): Promise<void> {
+    const user = await authRepository.findUserById(userId);
+    if (!user) throw new AppError("Foydalanuvchi topilmadi", 404, "USER_NOT_FOUND");
+    const ok = await verifyPassword(input.currentPassword, user.passwordHash);
+    if (!ok) throw new AppError("Joriy parol noto'g'ri", 400, "WRONG_PASSWORD");
+    const passwordHash = await hashPassword(input.newPassword);
+    await authRepository.updatePassword(userId, passwordHash);
   },
 };

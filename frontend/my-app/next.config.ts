@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "upload.wikimedia.org" },
       { protocol: "https", hostname: "www.carlogos.org" },
+      { protocol: "https", hostname: "logo.clearbit.com" }, // brend logolari (seed-data)
+      { protocol: "https", hostname: "loremflickr.com" }, // mashina rasmlari, `car` tegli (seed-data)
+      { protocol: "https", hostname: "picsum.photos" }, // eski placeholder rasmlar (zaxira)
     ],
   },
 };

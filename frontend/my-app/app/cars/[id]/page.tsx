@@ -52,7 +52,7 @@ export default function CarDetailPage() {
             <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
               {car.images.map((img, idx) => (
                 <button
-                  key={img.id}
+                  key={img.url}
                   onClick={() => setActiveImage(idx)}
                   className={`relative h-20 w-32 flex-shrink-0 overflow-hidden rounded-lg border-2 ${
                     activeImage === idx ? 'border-[#C1121F]' : 'border-transparent'

@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const CATALOG_LINKS = [
   { href: '/cars?condition=NEW', label: 'Новые авто' },
@@ -25,6 +28,10 @@ const FooterHeading = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Footer = () => {
+  const pathname = usePathname();
+  // Admin panelda public footer ko'rinmaydi.
+  if (pathname?.startsWith('/admin')) return null;
+
   return (
     <footer className="relative overflow-hidden bg-zinc-950 text-zinc-400">
       <div className="absolute inset-0 bg-grid opacity-40" />

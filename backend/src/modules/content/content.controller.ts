@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { contentService } from "./content.service";
-import { contactsQuerySchema } from "./content.schemas";
+import { contactsQuerySchema, createReviewSchema } from "./content.schemas";
 
 export const contentController = {
   async partnerBanks(_req: Request, res: Response, next: NextFunction) {
@@ -12,6 +12,15 @@ export const contentController = {
   async reviews(_req: Request, res: Response, next: NextFunction) {
     try {
       res.status(200).json({ reviews: await contentService.reviews() });
+    } catch (e) { next(e); }
+  },
+
+  async createReview(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { body } = createReviewSchema.parse({ body: req.body });
+      // authenticate middleware'dan keyin req.user kafolatlangan.
+      const review = await contentService.createReview(req.user!.id, body);
+      res.status(201).json({ review });
     } catch (e) { next(e); }
   },
 

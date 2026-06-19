@@ -12,6 +12,28 @@ export const contentRepository = {
     });
   },
 
+  findUserById(userId: string) {
+    return prisma.user.findUnique({ where: { id: userId } });
+  },
+
+  createReview(data: {
+    userId: string;
+    author: string;
+    text: string;
+    rating: number;
+  }) {
+    return prisma.review.create({
+      data: {
+        userId: data.userId,
+        author: data.author,
+        text: data.text,
+        rating: data.rating,
+        source: "Сайт", // saytda yozilgan otzivlar uchun manba
+        isPublished: true, // darhol ko'rinadi (login talab qilingani uchun)
+      },
+    });
+  },
+
   findRatings() {
     return prisma.externalRating.findMany({ orderBy: { platform: "asc" } });
   },

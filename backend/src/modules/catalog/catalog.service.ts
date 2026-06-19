@@ -59,7 +59,9 @@ function coverImage(car: CarWithRelations): string | null {
   return cover?.url ?? null;
 }
 
-function toListItem(car: CarWithRelations): CarListItem {
+// Boshqa modullar (masalan favorites) ham mashinani CarListItem'ga
+// o'girishi uchun eksport qilinadi — yagona DTO manbai.
+export function toListItem(car: CarWithRelations): CarListItem {
   return {
     id: car.id,
     brand: car.brand.name,
